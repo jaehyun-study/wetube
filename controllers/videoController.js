@@ -1,4 +1,4 @@
-export const home = (req, res) => res.render("Home");
+export const home = (req, res) => res.render("Home", { pageTitle: "Home" });
 export const search = (req, res) => res.render("Search");
 export const videos = (req, res) => res.render("Videos");
 export const upload = (req, res) => res.render("Upload");
