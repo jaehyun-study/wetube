@@ -2,13 +2,13 @@
 
 ## Pages:
 
-- [ ] Home
+- [x] Home
 - [x] Join
 - [x] Login
 - [x] Search
-- [ ] User Detail
+- [x] User Detail
 - [ ] Edit Profile
 - [ ] Change Password
 - [ ] Upload
-- [ ] Video Detail
+- [x] Video Detail
 - [ ] Edit Video
