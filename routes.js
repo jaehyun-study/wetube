@@ -16,9 +16,12 @@ const CHANGE_PASSWORD = "/change-password";
 
 const VIDEOS = "/videos";
 const UPLOAD = "/upload";
-const VIDEO_DETAIL = "/:id";
-const EDIT_VIDEO = "/:id/edit";
-const DELETE_VIDEO = "/:id/delete";
+const EDIT = "/edit";
+const DELETE = "/delete";
+const VIDEO_ID = "/:id";
+const VIDEO_DETAIL = VIDEO_ID;
+const EDIT_VIDEO = VIDEO_ID + EDIT;
+const DELETE_VIDEO = VIDEO_ID + DELETE;
 
 const routes = {
   home: HOME,
@@ -45,7 +48,13 @@ const routes = {
       return VIDEO_DETAIL;
     }
   },
-  editVideo: EDIT_VIDEO,
+  editVideo: id => {
+    if (id) {
+      return `${VIDEOS}/${id}${EDIT}`;
+    } else {
+      return EDIT_VIDEO;
+    }
+  },
   deleteVideo: DELETE_VIDEO
 };
 
