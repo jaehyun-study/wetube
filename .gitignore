@@ -111,3 +111,6 @@ package-lock.json
 
 # Uploads
 uploads
+
+# Static
+static

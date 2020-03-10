@@ -1,4 +1,3 @@
-import { reset } from "nodemon";
 import routes from "../routes";
 
 export const getJoin = (req, res) => {
