@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const VideoSchema = new mongoose.Schema({
   fileUrl: {
@@ -13,6 +13,10 @@ const VideoSchema = new mongoose.Schema({
   views: {
     type: Number,
     default: 0
+  },
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
   },
   createAt: {
     type: Date,
