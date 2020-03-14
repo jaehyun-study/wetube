@@ -83,17 +83,20 @@ export const userDetail = async (req, res) => {
     params: { id }
   } = req;
   try {
-    const user = await User.findById(id);
-    console.log(user);
+    const user = await User.findById(id).populate("videos");
     res.render("userDetail", { pageTitle: "UserDetail", user });
   } catch (error) {
     res.redirect(routes.home);
   }
 };
 
-export const getMe = (req, res) => {
-  console.log(req.user);
-  res.render("userDetail", { pageTitle: "UserDetail", user: req.user });
+export const getMe = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).populate("videos");
+    res.render("userDetail", { pageTitle: "UserDetail", user });
+  } catch (error) {
+    res.redirect(routes.home);
+  }
 };
 
 export const getEditProfile = (req, res) => res.render("editProfile");
