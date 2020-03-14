@@ -1,5 +1,6 @@
 @import "config/variables";
 @import "config/reset.scss";
+@import "config/utils.scss";
 
 @import "main.scss";
 
@@ -9,5 +10,6 @@
 @import "partials/socialLogin.scss";
 @import "partials/videoBlock.scss";
 
-@import "pages/home.scss";
+//@import "pages/home.scss";
 @import "pages/videoDetail.scss";
+@import "pages/userProfile.scss";

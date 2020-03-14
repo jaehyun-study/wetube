@@ -94,6 +94,6 @@ export const getMe = (req, res) => {
   res.render("userDetail", { pageTitle: "UserDetail", user: req.user });
 };
 
-export const editProfile = (req, res) => res.render("editProfile");
+export const getEditProfile = (req, res) => res.render("editProfile");
 
 export const changePassword = (req, res) => res.render("changePassword");
