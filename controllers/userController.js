@@ -48,9 +48,9 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
     const user = await User.findOne({ email });
     if (user) {
       user.email = email;
-      user.name = name;
+      user.name = user.name ? user.name : name;
       user.githubId = githubId;
-      user.avatarUrl = avatarUrl;
+      user.avatarUrl = user.avatarUrl ? user.avatarUrl : avatarUrl;
       user.save();
       return cb(null, user);
     } else {
@@ -95,5 +95,24 @@ export const getMe = (req, res) => {
 };
 
 export const getEditProfile = (req, res) => res.render("editProfile");
+
+export const postEditProfile = async (req, res) => {
+  const {
+    body: { name, email },
+    file,
+    user
+  } = req;
+  try {
+    await User.findByIdAndUpdate(user.id, {
+      name,
+      email,
+      avatarUrl: file ? file.path : user.avatarUrl
+    });
+    console.log("--------------");
+    res.redirect(routes.me);
+  } catch (error) {
+    res.redirect(routes.editProfile);
+  }
+};
 
 export const changePassword = (req, res) => res.render("changePassword");
