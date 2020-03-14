@@ -75,10 +75,25 @@ export const logout = (req, res) => {
   req.logout();
   res.redirect(routes.home);
 };
+
 export const users = (req, res) => res.render("users");
-export const userDetail = (req, res) => res.render("userDetail");
+
+export const userDetail = async (req, res) => {
+  const {
+    params: { id }
+  } = req;
+  try {
+    const user = await User.findById(id);
+    res.render("userDetail", { pageTitle: "UserDetail", user });
+  } catch (error) {
+    res.redirect(routes.home);
+  }
+};
+
 export const getMe = (req, res) => {
   res.render("userDetail", { pageTitle: "UserDetail", user: req.user });
 };
+
 export const editProfile = (req, res) => res.render("editProfile");
+
 export const changePassword = (req, res) => res.render("changePassword");
