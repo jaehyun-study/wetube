@@ -108,11 +108,30 @@ export const postEditProfile = async (req, res) => {
       email,
       avatarUrl: file ? file.path : user.avatarUrl
     });
-    console.log("--------------");
     res.redirect(routes.me);
   } catch (error) {
     res.redirect(routes.editProfile);
   }
 };
 
-export const changePassword = (req, res) => res.render("changePassword");
+export const getChangePassword = (req, res) => {
+  res.render("changePassword");
+};
+
+export const postChangePassword = async (req, res) => {
+  const {
+    body: { oldPassword, newPassword, newPassword2 },
+    user
+  } = req;
+  try {
+    if (newPassword != newPassword2) {
+      throw "newPassword != newPassword2";
+    }
+    await user.changePassword(oldPassword, newPassword);
+    res.redirect(routes.me);
+  } catch (error) {
+    console.log(error);
+    res.status = 400;
+    res.redirect(routes.users + routes.changePassword);
+  }
+};
