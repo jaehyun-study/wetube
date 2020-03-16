@@ -15,6 +15,7 @@ function init() {
   volumeButton.addEventListener("click", handleVolumeButtonClick);
   fullScreenButton.addEventListener("click", enterFullScreen);
   videoPlayer.addEventListener("loadedmetadata", setTotalTime);
+  videoPlayer.addEventListener("ended", handleEnded);
 }
 
 function handlePlayButtonClick() {
@@ -87,4 +88,9 @@ function setTotalTime() {
   const totalTimeString = formatTime(videoPlayer.duration);
   totalTime.innerHTML = totalTimeString;
   setInterval(getCurrentTime, 500);
+}
+
+function handleEnded() {
+  videoPlayer.currentTime = 0;
+  playButton.innerHTML = '<i class="fas fa-play"></i>';
 }
