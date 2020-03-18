@@ -13,6 +13,7 @@ import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
 import routes from "./routes";
 import "./passport";
+import apiRouter from "./routers/apiRouters";
 
 console.log("🔑 cs:" + process.env.COOKIE_SECRET);
 
@@ -42,5 +43,6 @@ app.use("/static", express.static("static"));
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
 app.use(routes.videos, videoRouter);
+app.use(routes.api, apiRouter);
 
 export default app;

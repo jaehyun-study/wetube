@@ -95,7 +95,13 @@ function setTotalTime() {
   setInterval(getCurrentTime, 500);
 }
 
+function registerView() {
+  const videoId = window.location.href.split("/videos/")[1];
+  fetch(`/api/${videoId}/view`, { method: "post" });
+}
+
 function handleEnded() {
+  registerView();
   videoPlayer.currentTime = 0;
   playButton.innerHTML = '<i class="fas fa-play"></i>';
 }
