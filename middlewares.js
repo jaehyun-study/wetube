@@ -1,10 +1,31 @@
 import multer from "multer";
+import multerS3 from "multer-s3";
+import aws from "aws-sdk";
 import routes from "./routes";
 
-const multerVideo = multer({ dest: "uploads/videos/" });
-export const uploadVideo = multerVideo.single("videoFile");
+const s3 = new aws.S3({
+  accessKeyId: process.env.AWS_KEY,
+  secretAccessKey: process.env.AWS_PRIVATE_KEY,
+  region: "ap-northeast-1"
+});
 
-const multerAvatar = multer({ dest: "uploads/avatar/" });
+const multerVideo = multer({
+  storage: multerS3({
+    s3,
+    acl: "public-read",
+    bucket: "jaehyun-study-wetube/video"
+  })
+});
+
+const multerAvatar = multer({
+  storage: multerS3({
+    s3,
+    acl: "public-read",
+    bucket: "jaehyun-study-wetube/avatar"
+  })
+});
+
+export const uploadVideo = multerVideo.single("videoFile");
 export const uploadAvatar = multerAvatar.single("avatar");
 
 export const localsMiddleware = (req, res, next) => {

@@ -109,8 +109,5 @@ dist
 # package-lock.json
 package-lock.json
 
-# Uploads
-uploads
-
 # Static
 static
