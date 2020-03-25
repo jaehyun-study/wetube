@@ -64,8 +64,9 @@ export const getEditVideo = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
-    if (video.creator.id !== user.id) {
-      throw "edit: video.creator.id !== user.id";
+    console.log(video);
+    if (video.creator != user.id) {
+      throw `edit: ${video.creator} != ${user.id}`;
     }
     res.render("editVideo", { pageTitle: `Edit: ${video.title}`, video });
   } catch (error) {
@@ -92,8 +93,8 @@ export const deleteVideo = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
-    if (video.creator.id !== user.id) {
-      throw "delete: video.creator.id !== user.id";
+    if (video.creator != user.id) {
+      throw `delete: ${video.creator} != ${user.id}`;
     }
     await Video.findOneAndDelete({ _id: id });
   } catch (error) {
