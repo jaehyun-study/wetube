@@ -3,7 +3,13 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-mongoose.connect(process.env.MONGO_URL_PROD, {
+// const mongoUrl = process.env.PRODUCTION
+//   ? process.env.MONGO_URL_PROD
+//   : process.env.MONGO_URL;
+
+const mongoUrl = process.env.MONGO_URL_PROD;
+
+mongoose.connect(mongoUrl, {
   useNewUrlParser: true,
   useFindAndModify: false
 });
