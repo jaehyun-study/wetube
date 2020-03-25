@@ -7,7 +7,7 @@ import routes from "./routes";
 passport.use(User.createStrategy());
 
 const githubCallbackUrl = process.env.PRODUCTION
-  ? "https://stark-gorge-76203.herokuapp.com"
+  ? "https://wetube-youtube-clone.herokuapp.com"
   : "http://localhost:4000";
 
 passport.use(
