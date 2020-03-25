@@ -48,9 +48,14 @@ export const videoDetail = async (req, res) => {
     params: { id }
   } = req;
   try {
-    const video = await Video.findById(id)
-      .populate("creator")
-      .populate("comments");
+    const video = await Video.findById(id).populate([
+      { path: "creator", model: "User" },
+      {
+        path: "comments",
+        model: "Comment",
+        populate: { path: "creator", model: "User" }
+      }
+    ]);
     res.render("videoDetail", { pageTitle: "videoDetail", video });
   } catch (error) {
     res.redirect(routes.home);
@@ -139,8 +144,30 @@ export const postAddComment = async (req, res) => {
     video.comments.push(newComment.id);
     video.save();
     res.status(200);
+    res.json({ id: newComment.id });
   } catch (error) {
     console.log("postAddComment: " + error.message);
+    res.status(400);
+  } finally {
+    res.end();
+  }
+};
+
+// Delete Comment
+
+export const postDeleteComment = async (req, res) => {
+  const {
+    params: { id },
+    body: { commentId }
+  } = req;
+  try {
+    await Comment.findByIdAndDelete(commentId);
+    const video = await Video.findById(id);
+    video.comments = video.comments.filter(id => id != commentId);
+    video.save();
+    res.status(200);
+  } catch (error) {
+    console.log("postDeleteComment: " + error.message);
     res.status(400);
   } finally {
     res.end();
