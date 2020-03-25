@@ -3,11 +3,9 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// const mongoUrl = process.env.PRODUCTION
-//   ? process.env.MONGO_URL_PROD
-//   : process.env.MONGO_URL;
-
-const mongoUrl = process.env.MONGO_URL_PROD;
+const mongoUrl = process.env.PRODUCTION
+  ? process.env.MONGO_URL_PROD
+  : process.env.MONGO_URL;
 
 mongoose.connect(mongoUrl, {
   useNewUrlParser: true,

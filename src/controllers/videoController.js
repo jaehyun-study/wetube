@@ -5,10 +5,10 @@ import Comment from "../models/Comment";
 export const home = async (req, res) => {
   try {
     const videos = await Video.find({}).sort({ _id: -1 });
-    res.render("Home", { pageTitle: "Home", videos });
+    res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     console.log(error);
-    res.render("Home", { pageTitle: "Home", videos: [] });
+    res.render("home", { pageTitle: "Home", videos: [] });
   }
 };
 
@@ -22,7 +22,7 @@ export const search = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-  res.render("Search", { pageTitle: "Search", searchTerm, videos });
+  res.render("search", { pageTitle: "Search", searchTerm, videos });
 };
 
 export const getUpload = (req, res) => res.render("upload");
