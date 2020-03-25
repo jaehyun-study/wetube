@@ -31,11 +31,14 @@ const initRecorder = async () => {
   } catch (error) {
     console.log(error.message);
     return false;
+  } finally {
+    updateRecordButtonCaption();
   }
 };
 
 const updateRecordButtonCaption = () => {
   let caption = "Can't record";
+  console.log(recorder);
   if (recorder) {
     if (recorder.state === "inactive") {
       caption = "Start Recording";
@@ -58,7 +61,6 @@ const toggleRecord = () => {
 
 const init = () => {
   initRecorder();
-  updateRecordButtonCaption();
   recordButton.addEventListener("click", toggleRecord);
 };
 
