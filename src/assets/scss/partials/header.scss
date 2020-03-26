@@ -1,45 +1,56 @@
 .header {
-  background-color: $red;
-  margin-bottom: 50px;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: $header-height;
+  z-index: 9;
+  background-color: rgba($color: #eeeeee, $alpha: 0.95);
+  border-bottom: 1px silver solid;
+  box-shadow: 0px 2px 4px rgba(200, 200, 200, 0.5);
   .header__wrapper {
     padding: 5px 0px;
     width: 100%;
+    height: 100%;
     margin: 0 auto;
     max-width: 1200px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: center;
+    grid-template-columns: 1fr 5fr 2fr;
     .header__column {
-      i {
-        color: white;
-        font-size: 30px;
-      }
-      &:nth-child(2) {
-        width: 100%;
-        justify-self: center;
-      }
-      &:last-child {
-        justify-self: end;
-      }
-      ul {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      a {
         display: flex;
-        color: white;
-        font-weight: 600;
-        text-transform: uppercase;
-        li:not(:last-child) {
-          margin-right: 15px;
+        align-items: center;
+        .homeIcon {
+          font-size: 22px;
+          margin-right: 4px;
+        }
+        .homeText {
+          font-size: 22px;
         }
       }
+      ul {
+        width: 80%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        font-weight: 300;
+      }
       form {
-        width: 100%;
+        width: 90%;
         input {
-          padding: 7px 10px;
+          all: unset;
+          background-color: white;
+          padding: 8px 10px;
           width: 100%;
-          border-radius: 5px;
+          box-shadow: inset 0 1px 2px silver;
+          border: 1px solid silver;
+          border-radius: 2px;
           font-size: 14px;
           color: $black;
           font-weight: 600;
-          max-width: none;
           &::placeholder {
             font-weight: 300;
             color: rgba(0, 0, 0, 0.7);
