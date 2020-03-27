@@ -3,6 +3,7 @@ const video = document.getElementById("jsVideo");
 const videoControls = document.getElementById("jsVideoControls");
 const playButton = document.getElementById("jsPlayButton");
 const muteButton = document.getElementById("jsMuteButton");
+const volumeControl = document.getElementById("jsVolumeControl");
 const progressBar = document.getElementById("jsProgressBar");
 const currentTime = document.getElementById("jsCurrentTime");
 const totalTime = document.getElementById("jsTotalTime");
@@ -71,10 +72,28 @@ const handleVideoEnded = () => {
 
 const toggleMute = () => {
   video.muted = !video.muted;
+  updateMuteButtonIcon();
+};
+
+const adjustVolume = event => {
+  const {
+    target: { value: volume }
+  } = event;
+  video.volume = volume;
+  updateMuteButtonIcon();
+};
+
+const updateMuteButtonIcon = () => {
   if (video.muted) {
     replaceButton(muteButton, "fas fa-volume-mute");
   } else {
-    replaceButton(muteButton, "fas fa-volume-up");
+    if (video.volume >= 0.6) {
+      replaceButton(muteButton, "fas fa-volume-up");
+    } else if (video.volume >= 0.2) {
+      replaceButton(muteButton, "fas fa-volume-down");
+    } else {
+      replaceButton(muteButton, "fas fa-volume-off");
+    }
   }
 };
 
@@ -129,7 +148,7 @@ const hideControls = () => {
   hideHandle = setTimeout(() => {
     video.classList.remove("show");
     videoControls.classList.remove("show");
-  }, 1000);
+  }, 2000);
 };
 
 const init = () => {
@@ -140,6 +159,7 @@ const init = () => {
   video.addEventListener("ended", handleVideoEnded);
   playButton.addEventListener("click", togglePlay);
   muteButton.addEventListener("click", toggleMute);
+  volumeControl.addEventListener("input", adjustVolume);
   progressBar.addEventListener("input", handleSeek);
   fullScreenButton.addEventListener("click", toggleFullScreen);
   document.addEventListener("fullscreenchange", handleFullScreenChange);

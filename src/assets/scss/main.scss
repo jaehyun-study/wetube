@@ -13,7 +13,7 @@ body {
 main {
   width: 100%;
   padding-top: $header-height;
-  min-height: 100vh - $footer-height;
+  min-height: 90vh;
 }
 
 input:not([type="file"]),

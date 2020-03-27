@@ -6,8 +6,10 @@ mixin videoPlayer(video = {})
                 span#jsPlayButton
                     i.fas.fa-play
             .videoPlayer__column
-                span#jsMuteButton
-                    i.fas.fa-volume-up
+                .videoPlayer__volumeControl
+                    span#jsMuteButton
+                        i.fas.fa-volume-up
+                    input#jsVolumeControl(type="range", min=0, max=1, step=0.1, value=1)
             .videoPlayer__column
                 input.videoPlayer__progressBar#jsProgressBar(type="range", min=0, max=0, step=0.01, value=0)
             .videoPlayer__column
