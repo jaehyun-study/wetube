@@ -29,23 +29,16 @@ const formatTime = seconds => {
   }
 };
 
-const updateTime = () => {
+const setDuration = () => {
   if (video.readyState < 2) {
-    setTimeout(updateTime, 500);
-    return;
+    setTimeout(setDuration, 500);
+  } else {
+    progressBar.max = video.duration;
+    totalTime.innerHTML = formatTime(video.duration);
   }
-  const totalTimeString = formatTime(video.duration);
-  progressBar.max = video.duration;
-  totalTime.innerHTML = totalTimeString;
-  setInterval(() => {
-    // if (!video.paused) {
-    currentTime.innerHTML = formatTime(video.currentTime);
-    progressBar.value = video.currentTime;
-    // }
-  }, 500);
 };
 
-const changeCurrentTime = () => {
+const handleSeek = () => {
   video.currentTime = progressBar.value;
 };
 
@@ -61,7 +54,18 @@ const togglePlay = () => {
   }
 };
 
+const handleTimeUpdate = () => {
+  currentTime.innerHTML = formatTime(video.currentTime);
+  progressBar.value = video.currentTime;
+};
+
+const registerView = () => {
+  const videoId = window.location.href.split("/videos/")[1];
+  fetch(`/api/${videoId}/view`, { method: "post" });
+};
+
 const handleVideoEnded = () => {
+  registerView();
   showControls();
 };
 
@@ -107,6 +111,7 @@ const handleFullScreenChange = () => {
 };
 
 const handleKeyPress = event => {
+  if (document.activeElement.tagName.toLowerCase() === "input") return;
   if (event.keyCode === 32) {
     event.preventDefault();
     togglePlay();
@@ -128,18 +133,22 @@ const hideControls = () => {
 };
 
 const init = () => {
-  video.addEventListener("loadedmetadata", updateTime);
-  setTimeout(updateTime, 100);
-  progressBar.addEventListener("input", changeCurrentTime);
+  video.addEventListener("loadedmetadata", setDuration);
+  setTimeout(setDuration, 100);
   video.addEventListener("click", togglePlay);
+  video.addEventListener("timeupdate", handleTimeUpdate);
   video.addEventListener("ended", handleVideoEnded);
   playButton.addEventListener("click", togglePlay);
   muteButton.addEventListener("click", toggleMute);
+  progressBar.addEventListener("input", handleSeek);
   fullScreenButton.addEventListener("click", toggleFullScreen);
   document.addEventListener("fullscreenchange", handleFullScreenChange);
   document.addEventListener("keypress", handleKeyPress);
   videoPlayer.addEventListener("mouseenter", showControls);
-  videoPlayer.addEventListener("mousemove", showControls);
+  videoPlayer.addEventListener("mousemove", () => {
+    showControls();
+    hideControls();
+  });
   videoPlayer.addEventListener("mouseleave", hideControls);
 };
 
