@@ -43,7 +43,6 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
   const {
     _json: { id: githubId, avatar_url: avatarUrl, name, email }
   } = profile;
-  console.log(profile);
   try {
     const user = await User.findOne({ email });
     if (user) {
@@ -68,6 +67,42 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
 };
 
 export const postGithubLogin = (req, res) => {
+  res.redirect(routes.home);
+};
+
+export const naverLogin = passport.authenticate("naver");
+
+export const naverLoginCallback = async (_, __, profile, cb) => {
+  const {
+    _json: { id: naverId, email }
+  } = profile;
+  try {
+    let name = email.split("@")[0];
+  } catch (error) {
+    name = "";
+  }
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      user.email = email;
+      user.name = user.name ? user.name : name;
+      user.naverId = naverId;
+      user.save();
+      return cb(null, user);
+    } else {
+      const newUser = await User.create({
+        email,
+        name,
+        naverId
+      });
+      return cb(null, newUser);
+    }
+  } catch (error) {
+    return cb(error);
+  }
+};
+
+export const postNaverLogin = (req, res) => {
   res.redirect(routes.home);
 };
 

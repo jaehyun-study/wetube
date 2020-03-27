@@ -11,7 +11,6 @@ import "./models/User";
 
 const port = process.env.PORT || 4000;
 
-const handleListening = () =>
-  console.log(`✅ Listening on: http://localhost:${port}`);
+const handleListening = () => console.log(`✅ Listening on ${port}`);
 
 app.listen(port, handleListening);

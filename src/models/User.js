@@ -6,6 +6,7 @@ const UserSchema = new mongoose.Schema({
   email: String,
   avatarUrl: String,
   githubId: Number,
+  naverId: Number,
   videos: [
     {
       type: mongoose.Schema.Types.ObjectId,
