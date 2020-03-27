@@ -1,16 +1,19 @@
 import routes from "../routes";
 import Video from "../models/Video";
 
+const shuffleArray = arr => arr.sort(() => Math.random() - 0.5);
+
 export const home = async (req, res) => {
   let videos;
   try {
     videos = await Video.find({})
-      .sort({ _id: -1 })
+      // .sort({ _id: -1 })
       .populate("creator");
   } catch (error) {
     videos = [];
     console.log(error);
   } finally {
+    shuffleArray(videos); // :)
     res.render("home", { pageTitle: "Home", videos });
   }
 };

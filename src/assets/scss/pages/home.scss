@@ -1,8 +1,8 @@
 .home-videos {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-gap: 15px;
-  padding: 12px;
+  grid-gap: 20px;
+  padding: 24px;
 }
 
 @media (max-width: 1000px) {

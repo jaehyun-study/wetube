@@ -18,6 +18,7 @@
     width: 100%;
     font-size: 16px;
     font-weight: 500;
+    padding-bottom: 4px;
     margin-bottom: 4px;
     white-space: nowrap;
     overflow: hidden;
@@ -26,18 +27,28 @@
   .videoBlock__info-container {
     display: flex;
     align-items: center;
-    .videoBlock__creator-avatar {
-      width: 24px;
-      height: 24px;
-      border-radius: 12px;
-      margin-right: 4px;
-    }
-    .videoBlock__creator,
-    .videoBlock__views {
-      color: grey;
+    a {
+      display: flex;
+      align-items: center;
+      .videoBlock__creator-avatar {
+        width: 24px;
+        height: 24px;
+        border-radius: 12px;
+        margin-right: 4px;
+      }
+      .videoBlock__creator {
+        color: grey;
+        &:hover {
+          color: inherit;
+        }
+      }
     }
     .videoBlock__separator {
+      color: grey;
       margin: 0px 4px;
+    }
+    .videoBlock__views {
+      color: grey;
     }
   }
 }
