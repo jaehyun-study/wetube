@@ -2,22 +2,53 @@ extends layouts/main
 include mixins/videoBlock
 
 block content
-    .user-profile
-        .user-profile__header
-            img.u-avatar(src=user.avatarUrl)
-            h4.profile__username=user.name
-        if loggedUser && user.id === loggedUser.id
-            .user-profile__btns
-                a(href=`/users${routes.editProfile}`)
-                    button ✏️ Edit Profile
-                a(href=`/users${routes.changePassword}`)
-                    button 🔒 Change Password
-        .user--videos
+    .user-detail-container
+        .user-profile
+            .user-profile__user
+                img.user-avatar(src=user.avatarUrl)
+                h2.user-name=user.name
+            if loggedUser && user.id === loggedUser.id
+                .user-profile__buttons
+                    a(href=`${routes.users}${routes.editProfile}`)
+                        button ✏️ Edit Profile
+                    a(href=`${routes.users}${routes.changePassword}`)
+                        button 🔒 Change Password
+        .user-header-line
+        .user-videos
             each video in user.videos 
                 +videoBlock({
                     id:video.id,
                     title:video.title,
                     views:video.views,
                     videoFile:video.fileUrl,
-                    creator:video.creator
+                    creator:null
                 })
+                +videoBlock({
+                    id:video.id,
+                    title:video.title,
+                    views:video.views,
+                    videoFile:video.fileUrl,
+                    creator:null
+                })
+                +videoBlock({
+                    id:video.id,
+                    title:video.title,
+                    views:video.views,
+                    videoFile:video.fileUrl,
+                    creator:null
+                })
+                +videoBlock({
+                    id:video.id,
+                    title:video.title,
+                    views:video.views,
+                    videoFile:video.fileUrl,
+                    creator:null
+                })
+                +videoBlock({
+                    id:video.id,
+                    title:video.title,
+                    views:video.views,
+                    videoFile:video.fileUrl,
+                    creator:null
+                })
+

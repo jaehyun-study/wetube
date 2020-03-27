@@ -7,6 +7,7 @@ block content
             button#jsRecordButton Start Recording
         form(action=`${routes.videos}${routes.upload}`, method="post", enctype="multipart/form-data")
             div.fileUpload
+                label(for="file") Video
                 input(type="file", id="file", name="videoFile", required=true, accept="video/*")
             input(type="text", placeholder="Title", name="title", required=true)
             textarea(name="description", placeholder="Description", required=true)

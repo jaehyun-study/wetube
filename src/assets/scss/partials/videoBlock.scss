@@ -1,10 +1,18 @@
 .videoBlock {
+  display: flex;
+  flex-direction: column;
   .videoBlock__thumbnail {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 10px;
-    max-width: 100%;
-    min-height: 180px;
     border-radius: 2px;
-    object-fit: cover;
+    overflow: hidden;
+    video {
+      width: 100%;
+      // object-fit: cover;
+    }
   }
   .videoBlock__title {
     width: 100%;
@@ -27,6 +35,9 @@
     .videoBlock__creator,
     .videoBlock__views {
       color: grey;
+    }
+    .videoBlock__separator {
+      margin: 0px 4px;
     }
   }
 }

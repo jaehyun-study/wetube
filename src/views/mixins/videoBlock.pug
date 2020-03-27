@@ -1,12 +1,14 @@
 mixin videoBlock(video)
     .videoBlock
         a(href=routes.videoDetail(video.id))
-            video.videoBlock__thumbnail(src=video.videoFile, controls=false)
+            .videoBlock__thumbnail
+                video(src=video.videoFile, controls=false)
             h4.videoBlock__title=video.title
             .videoBlock__info-container
-                img.videoBlock__creator-avatar(src=video.creator.avatarUrl)
-                span.videoBlock__creator=video.creator.name
-                span.videoBlock__separator  · 
+                if video.creator 
+                    img.videoBlock__creator-avatar(src=video.creator.avatarUrl)
+                    span.videoBlock__creator=video.creator.name
+                    span.videoBlock__separator ·
                 if video.views === 1
                     span.videoBlock__views 1 view
                 else
