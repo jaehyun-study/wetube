@@ -1,69 +1,53 @@
 .videoPlayer {
   position: relative;
   width: 100%;
-  &:hover {
-    .videoPlayer__controls {
-      opacity: 1;
-    }
-  }
-  video {
+  background-color: black;
+  .video {
     width: 100%;
-    max-height: 720px;
+    height: 100%;
+    cursor: none;
+  }
+  .video.show {
+    cursor: auto;
   }
   .videoPlayer__controls {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 60px;
+    bottom: 0px;
+    display: grid;
+    grid-template-columns: 60px 60px 1fr 140px 60px;
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
     opacity: 0;
     transition: opacity 0.2s linear;
-    color: white;
-    position: absolute;
-    z-index: 3;
-    bottom: 0px;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    font-size: 16px;
-    .videoPlayer__column:first-child {
+    .videoPlayer__column {
       display: flex;
+      justify-content: center;
       align-items: center;
-      #jsVolumeButton {
-        margin-right: 10px;
+      .videoPlayer__progressBar {
+        width: 100%;
+        max-width: none;
+        padding: 0px;
+        border: none;
+        box-shadow: none;
+        cursor: pointer;
+      }
+      .separator {
+        margin: 0px 2px;
       }
     }
-    .videoPlayer__volume {
-      position: absolute;
-      padding: 0;
-      opacity: 1;
-      top: -60px;
-      left: -25px;
-      transform: rotate(-90deg);
-      z-index: 10;
-      width: 80px;
-      input {
-        background-color: rgba(0, 0, 0, 0.7);
-        &::-webkit-slider-runnable-track {
-          background-color: $grey;
-          height: 5px;
-        }
-        &::-webkit-slider-thumb {
-          all: unset;
-          height: 15px;
-          width: 15px;
-          border-radius: 50%;
-          position: relative;
-          top: -5px;
-        }
-      }
-    }
-    .videoPlayer__column:last-child {
-      justify-self: end;
-    }
-    .videoPlayer__column:nth-child(2) {
-      justify-self: center;
+    span {
+      font-size: 16px;
     }
     i {
-      font-size: 25px;
-      cursor: pointer;
+      font-size: 22px;
     }
+  }
+  .videoPlayer__controls.show {
+    opacity: 1;
+    transition: opacity 0.2s linear;
   }
 }
