@@ -2,10 +2,9 @@ extends layouts/main
 include mixins/videoBlock
 
 block content
-    .search__header
-        h3 Searching for #{searchTerm}
+    .search-results
         if videos.length === 0
-            h5 No videos found
+            p.search-results__no-videos 🤨 No videos found.
         each video in videos
             +videoBlock({
                 id:video.id,

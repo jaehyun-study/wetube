@@ -6,7 +6,7 @@ header.header
                 span.homeText WeTube
         .header__column
             form(action=routes.search, method="get")
-                input(type="text", placeholder="Search", name="term")
+                input(type="text", placeholder="Search", name="term", value=searchTerm)
         .header__column
             ul
                 if !loggedUser
