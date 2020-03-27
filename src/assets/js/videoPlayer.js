@@ -71,15 +71,18 @@ const formatTime = seconds => {
   return `${hh}:${mm}:${ss}`;
 };
 
+let totalTimeString;
 const getCurrentTime = () => {
-  console.log("currentTime: " + video.currentTime);
+  if (!totalTimeString) {
+    totalTimeString = formatTime(video.duration);
+    totalTime.innerHTML = totalTimeString;
+  }
   currentTime.innerHTML = formatTime(video.currentTime);
 };
 
 const setTotalTime = () => {
-  console.log("duration: " + video.duration);
-  const totalTimeString = formatTime(video.duration);
-  totalTime.innerHTML = totalTimeString;
+  // totalTimeString = formatTime(video.duration);
+  // totalTime.innerHTML = totalTimeString;
   setInterval(getCurrentTime, 500);
 };
 
@@ -113,7 +116,8 @@ const init = () => {
   volumeButton.addEventListener("click", handleVolumeButtonClick);
   fullScreenButton.addEventListener("click", enterFullScreen);
   video.volume = 0.5;
-  video.addEventListener("loadedmetadata", setTotalTime);
+  // video.addEventListener("loadedmetadata", setTotalTime);
+  setTotalTime(); // hack...
   video.addEventListener("ended", handleEnded);
   volumeRange.addEventListener("input", handleRangeDrag);
 };
