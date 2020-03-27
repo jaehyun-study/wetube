@@ -1,18 +1,32 @@
 .videoBlock {
-  video {
+  .videoBlock__thumbnail {
     margin-bottom: 10px;
     max-width: 100%;
-    border-radius: 4px;
+    min-height: 180px;
+    border-radius: 2px;
+    object-fit: cover;
   }
   .videoBlock__title {
-    font-size: 18px;
-    font-weight: 400;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 500;
     margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  .videoBlock__creator {
-    color: grey;
-  }
-  .videoBlock__views {
-    color: grey;
+  .videoBlock__info-container {
+    display: flex;
+    align-items: center;
+    .videoBlock__creator-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 12px;
+      margin-right: 4px;
+    }
+    .videoBlock__creator,
+    .videoBlock__views {
+      color: grey;
+    }
   }
 }

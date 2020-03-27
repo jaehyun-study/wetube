@@ -16,17 +16,39 @@ const updateCommentNumber = delta => {
   }
 };
 
-const addComment = (comment, id) => {
+const checkLogin = async () => {
+  const res = await axios({
+    url: "/api/check-login",
+    method: "get"
+  });
+  if (!res.data.login) {
+    window.location.href = "/login";
+  }
+};
+
+const addComment = newComment => {
+  console.log(newComment.creator);
   const li = document.createElement("li");
-  const span = document.createElement("span");
-  const i = document.createElement("i");
-  li.id = id;
-  span.innerHTML = comment;
-  li.appendChild(span);
-  i.className = "fas fa-trash-alt";
-  i.dataset.id = id;
-  i.addEventListener("click", sendDeleteComment);
-  li.appendChild(i);
+  li.id = newComment.id;
+  li.innerHTML = `<div class="video-comment__author-container">
+  <a href="/users/${newComment.creator.id}">
+  <img class="video__author-avatar" src="${newComment.creator.avatarUrl}">
+  </a>
+  <a href="/users/${newComment.creator.id}">
+  <span class="video__author-name">${newComment.creator.name}</span>
+  </a>
+  </div>`;
+  const commentBody = document.createElement("div");
+  commentBody.className = "video-comment__body";
+  li.appendChild(commentBody);
+  const commentText = document.createElement("span");
+  commentText.innerText = newComment.text;
+  commentBody.appendChild(commentText);
+  const commentDeleteButton = document.createElement("i");
+  commentDeleteButton.className = "fas fa-trash-alt";
+  commentDeleteButton.dataset.id = newComment.id;
+  commentDeleteButton.addEventListener("click", sendDeleteComment);
+  commentBody.appendChild(commentDeleteButton);
   commentList.prepend(li);
 };
 
@@ -43,7 +65,7 @@ const sendAddComment = async () => {
     }
   });
   if (res.status === 200) {
-    addComment(comment, res.data.id);
+    addComment(res.data);
     updateCommentNumber(+1);
     commentInput.value = "";
   }
@@ -72,6 +94,8 @@ const sendDeleteComment = async event => {
 const init = () => {
   // add
   addCommentForm.addEventListener("submit", sendAddComment);
+  const commentInput = addCommentForm.querySelector("input");
+  commentInput.addEventListener("focus", checkLogin);
   // delete
   for (let i in deleteButtons) {
     if (typeof deleteButtons[i] === "object") {

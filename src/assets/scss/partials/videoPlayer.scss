@@ -1,5 +1,6 @@
 .videoPlayer {
   position: relative;
+  width: 100%;
   &:hover {
     .videoPlayer__controls {
       opacity: 1;
@@ -7,6 +8,7 @@
   }
   video {
     width: 100%;
+    max-height: 720px;
   }
   .videoPlayer__controls {
     opacity: 0;

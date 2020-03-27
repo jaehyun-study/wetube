@@ -1,14 +1,14 @@
 # Wetube
 
-## Pages:
+## Pages
 
 - [x] Home
 - [x] Join
 - [x] Login
 - [x] Search
 - [x] User Detail
-- [ ] Edit Profile
-- [ ] Change Password
-- [ ] Upload
+- [x] Edit Profile
+- [x] Change Password
+- [x] Upload
 - [x] Video Detail
-- [ ] Edit Video
+- [x] Edit Video

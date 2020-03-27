@@ -32,6 +32,7 @@ const GITHUB_CALLBACK = "/auth/github/callback";
 // API
 
 const API = "/api";
+const CHECK_LOGIN = "/check-login";
 const REGISTER_VIEW = "/:id/view";
 const ADD_COMMENT = "/:id/add-comment";
 const DELETE_COMMENT = "/:id/delete-comment";
@@ -79,6 +80,7 @@ const routes = {
   github: GITHUB,
   githubCallback: GITHUB_CALLBACK,
   api: API,
+  requestLogin: CHECK_LOGIN,
   registerView: REGISTER_VIEW,
   addComment: ADD_COMMENT,
   deleteComment: DELETE_COMMENT

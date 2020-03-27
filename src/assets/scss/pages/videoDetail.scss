@@ -2,65 +2,99 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  .video__player {
+    width: 100%;
+    background-color: black;
+  }
   .video__info {
+    position: relative;
+    padding: 18px;
     width: 100%;
     max-width: 850px;
-    margin-top: 25px;
-    button {
-      width: 100px;
-      margin-bottom: 25px;
+    .video__edit-button {
+      position: absolute;
+      top: 80px;
+      right: 18px;
+      width: auto;
     }
     .video__title,
     .video__views,
     .video__description {
       display: block;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
-    .video__author {
-      a {
-        color: #3498db;
+    .video__author-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      .video__author-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 16px;
+        margin-right: 4px;
+      }
+      .video__author-name {
+        font-size: 18px;
       }
     }
     .video__title {
-      font-size: 22px;
-      font-weight: 300;
+      font-size: 32px;
+      font-weight: 400;
     }
     .video__views {
       font-size: 14px;
     }
     .video__description {
+      white-space: pre-wrap;
       font-size: 16px;
+      line-height: 24px;
     }
   }
   .video__comments {
-    margin-top: 25px;
-    text-align: center;
-    .video__comment-number {
-      font-size: 18px;
+    width: 100%;
+    max-width: 850px;
+    padding: 18px;
+    .video__comment-number-container {
+      margin-bottom: 12px;
     }
     .add__comment {
-      margin-top: 25px;
       width: 100%;
+      margin-bottom: 12px;
       input {
         width: 100%;
+        max-width: none;
       }
     }
     .video__comments-list {
-      margin-top: 50px;
       li {
-        display: flex;
-        justify-content: space-between;
-        background-color: #3498db;
-        color: white;
-        padding: 15px;
-        border-radius: 20px;
-        border-bottom-left-radius: 0px;
-        &:not(:last-child) {
-          margin-bottom: 15px;
+        padding: 24px 0px;
+        margin-bottom: 12px;
+        .video-comment__author-container {
+          // display: block;
+          display: flex;
+          align-items: center;
+          margin-bottom: 12px;
+          img {
+            width: 24px;
+            height: 24px;
+            border-radius: 12px;
+            margin-right: 4px;
+          }
         }
-        i {
-          cursor: pointer;
+        .video-comment__body {
+          display: flex;
+          justify-content: space-between;
+          color: $black;
+          span {
+            padding: 0px 12px;
+          }
+          i {
+            padding: 0px 12px;
+          }
         }
+      }
+      li:not(:last-child) {
+        border-bottom: 1px solid #efefef;
       }
     }
   }

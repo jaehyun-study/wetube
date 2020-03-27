@@ -1,5 +1,24 @@
 .home-videos {
   display: grid;
-  grid-template-columns: repeat(4, minmax(150px, 1fr));
-  grid-gap: 30px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-gap: 15px;
+  padding: 12px;
+}
+
+@media (max-width: 1000px) {
+  .home-videos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .home-videos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .home-videos {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
 }

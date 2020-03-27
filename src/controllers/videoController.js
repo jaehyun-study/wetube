@@ -1,16 +1,17 @@
 import routes from "../routes";
 import Video from "../models/Video";
-import Comment from "../models/Comment";
 
 export const home = async (req, res) => {
+  let videos;
   try {
-    const videos = await Video.find({})
+    videos = await Video.find({})
       .sort({ _id: -1 })
       .populate("creator");
-    res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
+    videos = [];
     console.log(error);
-    res.render("home", { pageTitle: "Home", videos: [] });
+  } finally {
+    res.render("home", { pageTitle: "Home", videos });
   }
 };
 
@@ -26,7 +27,11 @@ export const search = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-  res.render("search", { pageTitle: "Search", searchTerm, videos });
+  res.render("search", {
+    pageTitle: `Search for ${searchTerm}`,
+    searchTerm,
+    videos
+  });
 };
 
 export const getUpload = (req, res) => res.render("upload");
@@ -60,7 +65,7 @@ export const videoDetail = async (req, res) => {
         populate: { path: "creator", model: "User" }
       }
     ]);
-    res.render("videoDetail", { pageTitle: "videoDetail", video });
+    res.render("videoDetail", { pageTitle: video.title, video });
   } catch (error) {
     res.redirect(routes.home);
   }
@@ -110,70 +115,4 @@ export const deleteVideo = async (req, res) => {
     console.log(error);
   }
   res.redirect(routes.home);
-};
-
-// Register View
-
-export const postRegisterView = async (req, res) => {
-  const {
-    params: { id }
-  } = req;
-  try {
-    const video = await Video.findById(id);
-    video.views += 1;
-    video.save();
-    res.status(200);
-  } catch (error) {
-    console.log("postRegisterView: " + error.message);
-    res.status(400);
-  } finally {
-    res.end();
-  }
-};
-
-// Add Comment
-
-export const postAddComment = async (req, res) => {
-  const {
-    params: { id },
-    body: { comment },
-    user
-  } = req;
-  try {
-    const video = await Video.findById(id);
-    const newComment = await Comment.create({
-      text: comment,
-      creator: user.id
-    });
-    video.comments.push(newComment.id);
-    video.save();
-    res.status(200);
-    res.json({ id: newComment.id });
-  } catch (error) {
-    console.log("postAddComment: " + error.message);
-    res.status(400);
-  } finally {
-    res.end();
-  }
-};
-
-// Delete Comment
-
-export const postDeleteComment = async (req, res) => {
-  const {
-    params: { id },
-    body: { commentId }
-  } = req;
-  try {
-    await Comment.findByIdAndDelete(commentId);
-    const video = await Video.findById(id);
-    video.comments = video.comments.filter(id => id != commentId);
-    video.save();
-    res.status(200);
-  } catch (error) {
-    console.log("postDeleteComment: " + error.message);
-    res.status(400);
-  } finally {
-    res.end();
-  }
 };
