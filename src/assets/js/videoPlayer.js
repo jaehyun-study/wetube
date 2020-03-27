@@ -72,10 +72,12 @@ const formatTime = seconds => {
 };
 
 const getCurrentTime = () => {
+  console.log("currentTime: " + video.currentTime);
   currentTime.innerHTML = formatTime(video.currentTime);
 };
 
 const setTotalTime = () => {
+  console.log("duration: " + video.duration);
   const totalTimeString = formatTime(video.duration);
   totalTime.innerHTML = totalTimeString;
   setInterval(getCurrentTime, 500);
