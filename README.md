@@ -13,4 +13,4 @@
 - [x] Video Detail
 - [x] Edit Video
 - [ ] Flash Message
-- [ ] Player bug: input type range and space bar
+- [x] Player bug: input type range and space bar
