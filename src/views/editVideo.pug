@@ -3,8 +3,8 @@ extends layouts/main
 block content
     .form-container
         form(action=routes.editVideo(video.id), method="post")
-            input(type="test", name="title", placeholder="Title", value=video.title)
-            textarea(name="description", placeholder="Description")=video.description
+            input(type="test", name="title", placeholder="Title", value=video.title, required=true)
+            textarea(name="description", placeholder="Description", required)=video.description
             input(type="submit", value="Update Video")
         a(href=routes.deleteVideo(video.id))
             button.delete Delete Video 
