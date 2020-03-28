@@ -130,7 +130,11 @@ const handleFullScreenChange = () => {
 };
 
 const handleKeyPress = event => {
-  if (document.activeElement.tagName.toLowerCase() === "input") return;
+  if (
+    document.activeElement.tagName.toLowerCase() === "input" &&
+    document.activeElement.type === "text"
+  )
+    return;
   if (event.keyCode === 32) {
     event.preventDefault();
     togglePlay();
