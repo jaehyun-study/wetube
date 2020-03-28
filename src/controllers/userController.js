@@ -11,6 +11,7 @@ export const postJoin = async (req, res, next) => {
     body: { name, email, password, password2 }
   } = req;
   if (password != password2) {
+    req.flash("error", "New passwords don't match. 🤔");
     res.status(400);
     res.render("join", { pageTitle: "Join" });
   } else {
@@ -34,10 +35,15 @@ export const getLogin = (req, res) => {
 
 export const postLogin = passport.authenticate("local", {
   successRedirect: routes.home,
-  failureRedirect: routes.login
+  failureRedirect: routes.login,
+  successFlash: "Welcome! 😀",
+  failureFlash: "Check email or password. 🤔"
 });
 
-export const githubLogin = passport.authenticate("github");
+export const githubLogin = passport.authenticate("github", {
+  successFlash: "Welcome! 😀",
+  failureFlash: "Check email or password. 🤔"
+});
 
 export const githubLoginCallback = async (_, __, profile, cb) => {
   const {
@@ -104,6 +110,7 @@ export const postNaverLogin = (req, res) => {
 
 export const logout = (req, res) => {
   req.logout();
+  req.flash("success", "Bye~ 🖐");
   res.redirect(routes.home);
 };
 
@@ -144,6 +151,7 @@ export const postEditProfile = async (req, res) => {
       email,
       avatarUrl: file ? file.location : user.avatarUrl
     });
+    req.flash("success", "Profile updated. 🎵");
     res.redirect(routes.me);
   } catch (error) {
     res.redirect(routes.editProfile);
@@ -161,12 +169,16 @@ export const postChangePassword = async (req, res) => {
   } = req;
   try {
     if (newPassword != newPassword2) {
-      throw "newPassword != newPassword2";
+      req.flash("error", "New passwords don't match. 🤔");
+      res.status(400);
+      res.redirect(routes.users + routes.changePassword);
     }
     await user.changePassword(oldPassword, newPassword);
+    req.flash("success", "Password changed. 🔒");
     res.redirect(routes.me);
   } catch (error) {
     console.log(error);
+    req.flash("error", error.message + ". 🤔");
     res.status = 400;
     res.redirect(routes.users + routes.changePassword);
   }

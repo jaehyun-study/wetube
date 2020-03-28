@@ -12,4 +12,10 @@ html
         main
             block content
         include ../partials/footer
+        if messages.error
+            .message=messages.error
+        else if messages.info
+            .message=messages.info
+        else if messages.success
+            .message=messages.success
         script(src="/static/main.js") 
