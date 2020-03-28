@@ -1,3 +1,5 @@
+import getBlobDuration from "get-blob-duration";
+
 const videoPlayer = document.getElementById("jsVideoPlayer");
 const video = document.getElementById("jsVideo");
 const videoControls = document.getElementById("jsVideoControls");
@@ -30,13 +32,10 @@ const formatTime = seconds => {
   }
 };
 
-const setDuration = () => {
-  if (video.readyState < 2) {
-    setTimeout(setDuration, 500);
-  } else {
-    progressBar.max = video.duration;
-    totalTime.innerHTML = formatTime(video.duration);
-  }
+const setDuration = async () => {
+  const duration = await getBlobDuration(video.src);
+  progressBar.max = duration;
+  totalTime.innerHTML = formatTime(duration);
 };
 
 const handleSeek = () => {
@@ -157,7 +156,6 @@ const hideControls = () => {
 
 const init = () => {
   video.addEventListener("loadedmetadata", setDuration);
-  setTimeout(setDuration, 100);
   video.addEventListener("click", togglePlay);
   video.addEventListener("timeupdate", handleTimeUpdate);
   video.addEventListener("ended", handleVideoEnded);
@@ -174,6 +172,7 @@ const init = () => {
     hideControls();
   });
   videoPlayer.addEventListener("mouseleave", hideControls);
+  setDuration();
 };
 
 if (videoPlayer) init();
