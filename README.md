@@ -12,5 +12,5 @@
 - [x] Upload
 - [x] Video Detail
 - [x] Edit Video
-- [ ] Flash Message
+- [x] Flash Message
 - [x] Player bug: input type range and space bar
