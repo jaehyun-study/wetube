@@ -82,6 +82,8 @@ export const naverLogin = passport.authenticate("naver", {
 });
 
 export const naverLoginCallback = async (_, __, profile, cb) => {
+  console.log("--- NAVER Callback ---");
+  console.log(profile);
   const {
     _json: { id: naverId, email }
   } = profile;
