@@ -87,7 +87,7 @@ export const naverLoginCallback = async (_, __, profile, cb) => {
   const {
     _json: { id: naverId, email }
   } = profile;
-  const name = email.split("@")[0];
+  const name = email ? email.split("@")[0] : "noname";
   try {
     const user = await User.findOne({ email });
     if (user) {
