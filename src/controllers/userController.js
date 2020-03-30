@@ -82,14 +82,14 @@ export const naverLogin = passport.authenticate("naver", {
 });
 
 export const naverLoginCallback = async (_, __, profile, cb) => {
+  console.log("❗️ NAVER Callback");
+  console.log(profile);
   const {
-    _json: { id: naverId, email }
+    _json: { id: naverId }
   } = profile;
   try {
-    if (!email) {
-      throw "no email ...";
-    }
-    const name = email.split("@")[0];
+    const name = naverId;
+    const email = `${naverId}@${naverId}.naver.com`;
     const user = await User.findOne({ email });
     if (user) {
       user.email = email;
@@ -106,7 +106,6 @@ export const naverLoginCallback = async (_, __, profile, cb) => {
       return cb(null, newUser);
     }
   } catch (error) {
-    console.log("naver callback ------");
     console.log(error.message);
     return cb(error);
   }
