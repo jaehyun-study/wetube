@@ -53,7 +53,7 @@
     "build": "npm run build:server && npm run build:assets && npm run copyAssets",
     "prebuild": "rm -rf build",
     "start": "PRODUCTION=true node build/init.js",
-    "prestart": "npm run build"
+    "//": "prestart : npm run build"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
